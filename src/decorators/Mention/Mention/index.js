@@ -9,15 +9,15 @@ class Mention {
   }
   getMentionComponent = () => {
     const className = this.className;
+    // TODO: CHANGE THIS TEMPLATE TO PULL FROM THE CONFIG
     const MentionComponent = ({ entityKey, children, contentState }) => {
       const { url, value } = contentState.getEntity(entityKey).getData();
       return (
-        <a
-          href={url || value}
-          className={classNames("rdw-mention-link", className)}
-        >
-          {children}
-        </a>
+          <div
+              className={classNames("rdw-mention-link", className)} data-id={url||value}
+          >
+            {children}
+          </div>
       );
     };
     MentionComponent.propTypes = {

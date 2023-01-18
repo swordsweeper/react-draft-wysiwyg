@@ -19,6 +19,7 @@ class Suggestion {
       dropdownClassName,
       optionClassName,
       modalHandler,
+      onMentionAdded,
     } = config;
     this.config = {
       separator,
@@ -31,6 +32,7 @@ class Suggestion {
       dropdownClassName,
       optionClassName,
       modalHandler,
+      onMentionAdded,
     };
   }
 
@@ -202,6 +204,7 @@ function getSuggestionComponent() {
 
     filteredSuggestions = [];
 
+    // TODO: Filter should make the API call
     filterSuggestions = props => {
       const mentionText = props.children[0].props.text.substr(1);
       const suggestions = config.getSuggestions();
@@ -229,6 +232,9 @@ function getSuggestionComponent() {
       const selectedMention = this.filteredSuggestions[activeOption];
       if (selectedMention) {
         addMention(editorState, onChange, separator, trigger, selectedMention);
+        if(config.onMentionAdded) {
+          config.onMentionAdded(selectedMention);
+        }
       }
     };
 
